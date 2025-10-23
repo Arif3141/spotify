@@ -4,7 +4,7 @@ let currentFolder;
 
 async function getSong(folder) {
   currentFolder = folder;
-  let a = await fetch(`http://github.com/Arif3141/${folder}`);
+  let a = await fetch(`https://arif3141.github.io/spotify/${folder}`);   
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -13,7 +13,7 @@ async function getSong(folder) {
   for (let index = 0; index < as.length; index++) {
     const element = as[index];
     if (element.href.endsWith(".mp3")) {
-      songs.push(element.href.split(`http://github.com/Arif3141/${folder}/`)[1]);
+      songs.push(element.href.split(`https://arif3141.github.io/spotify/${folder}/`)[1]);
     }
   }
   //show al the songs in play list
@@ -47,7 +47,7 @@ async function getSong(folder) {
 }
 
 const playMusic = (track, pause = false) => {
-  currentSong.src = `http://github.com/Arif3141/${currentFolder}/` + track;    
+  currentSong.src = `https://arif3141.github.io/spotify/${currentFolder}/` + track;    
   if (!pause) {
     play.src = "./img/pause.svg";
     currentSong.play();
@@ -75,7 +75,8 @@ function secondsToMinSec(seconds) {
 // console.log(secondsToMinSec(3600)); // "60:00"
 
 async function displayAlbums() {
-let a = await fetch('/spotify/songs/');   
+let a = await fetch(`./songs/`);
+
 
   let response = await a.text();
   let div = document.createElement("div");
@@ -86,17 +87,17 @@ let a = await fetch('/spotify/songs/');
   for(let index = 0 ; index< array.length ; index++){
     const e = array[index]
   
-    if (e.href.includes("/songs/")) {
+    if (e.href.includes("./songs/")) {
       let folder = e.href.split("/").slice(-1)[0]
       //get the metadata of a folder
-      let a = await fetch(`/spotify/songs/${folder}/info.json`)
+      let a = await fetch(`./songs/${folder}/info.json`)
       let response  = await a.json()
       console.log(response)
       cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card">
                         <div class="play">
                             <img class="playSymble" src="./img/play-button.png" alt="">
                         </div>
-                        <img src="/songs/${folder}/cover.jpg" alt="">
+                        <img src="./songs/${folder}/cover.jpg" alt="">
                         <h3>${response.title}</h1>
                             <p>${response.description}</p>
                     </div>`
@@ -105,14 +106,14 @@ let a = await fetch('/spotify/songs/');
     //click on card
   Array.from(document.getElementsByClassName("card")).forEach((e) => {
     e.addEventListener("click", async (item) => {
-      songs = await getSong(`songs/${item.currentTarget.dataset.folder}`);
+      songs = await getSong(`./songs/${item.currentTarget.dataset.folder}`);
        playMusic(songs[0])
     });
   });
 }
 async function main() {
   //Get the list
-  await getSong("songs/ncs");
+  await getSong("./songs/ncs");
   playMusic(songs[0], true);
   // console.log(songs);
 
