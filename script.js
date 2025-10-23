@@ -47,7 +47,7 @@ async function getSong(folder) {
 }
 
 const playMusic = (track, pause = false) => {
-  currentSong.src = `http://github.com/Arif3141/${currentFolder}/` + track;
+  currentSong.src = `http://github.com/Arif3141/${currentFolder}/` + track;    
   if (!pause) {
     play.src = "./img/pause.svg";
     currentSong.play();
@@ -75,7 +75,8 @@ function secondsToMinSec(seconds) {
 // console.log(secondsToMinSec(3600)); // "60:00"
 
 async function displayAlbums() {
-  let a = await fetch(`https://github.com/Arif3141/spotify/tree/main/songs`);
+let a = await fetch('/spotify/songs/');   
+
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -88,7 +89,7 @@ async function displayAlbums() {
     if (e.href.includes("/songs/")) {
       let folder = e.href.split("/").slice(-1)[0]
       //get the metadata of a folder
-      let a = await fetch(`https://github.com/Arif3141/spotify/tree/main/songs/${folder}/info.json`)
+      let a = await fetch(`/spotify/songs/${folder}/info.json`)
       let response  = await a.json()
       console.log(response)
       cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card">
@@ -199,4 +200,5 @@ document.querySelector('.volume>img').addEventListener('click', e => {
 })
 }
 main();
+
 
