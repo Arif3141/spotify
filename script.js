@@ -4,7 +4,7 @@ let currentFolder;
 
 async function getSong(folder) {
   currentFolder = folder;
-  let a = await fetch(`http://192.168.1.8:5501/${folder}`);
+  let a = await fetch(`http://github.com/Arif3141/${folder}`);
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -13,7 +13,7 @@ async function getSong(folder) {
   for (let index = 0; index < as.length; index++) {
     const element = as[index];
     if (element.href.endsWith(".mp3")) {
-      songs.push(element.href.split(`http://192.168.1.8:5501/${folder}/`)[1]);
+      songs.push(element.href.split(`http://github.com/Arif3141/${folder}/`)[1]);
     }
   }
   //show al the songs in play list
@@ -47,7 +47,7 @@ async function getSong(folder) {
 }
 
 const playMusic = (track, pause = false) => {
-  currentSong.src = `http://192.168.1.8:5501/${currentFolder}/` + track;
+  currentSong.src = `http://github.com/Arif3141/${currentFolder}/` + track;
   if (!pause) {
     play.src = "./img/pause.svg";
     currentSong.play();
@@ -75,7 +75,7 @@ function secondsToMinSec(seconds) {
 // console.log(secondsToMinSec(3600)); // "60:00"
 
 async function displayAlbums() {
-  let a = await fetch(`http://192.168.1.8:5501/songs/`);
+  let a = await fetch(`https://github.com/Arif3141/spotify/tree/main/songs`);
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -88,7 +88,7 @@ async function displayAlbums() {
     if (e.href.includes("/songs/")) {
       let folder = e.href.split("/").slice(-1)[0]
       //get the metadata of a folder
-      let a = await fetch(`http://192.168.1.8:5501/songs/${folder}/info.json`)
+      let a = await fetch(`https://github.com/Arif3141/spotify/tree/main/songs/${folder}/info.json`)
       let response  = await a.json()
       console.log(response)
       cardContainer.innerHTML = cardContainer.innerHTML + `<div data-folder="${folder}" class="card">
@@ -199,3 +199,4 @@ document.querySelector('.volume>img').addEventListener('click', e => {
 })
 }
 main();
+
