@@ -75,7 +75,7 @@ function secondsToMinSec(seconds) {
 // console.log(secondsToMinSec(3600)); // "60:00"
 
 async function displayAlbums() {
-let a = await fetch(`./songs/`);
+let a = await fetch(`https://github.com/Arif3141/spotify/tree/5ab45dd7bc773e2d3264367efa00cc1317a0f9b6/songs`);
 
 
   let response = await a.text();
@@ -201,5 +201,6 @@ document.querySelector('.volume>img').addEventListener('click', e => {
 })
 }
 main();
+
 
 
